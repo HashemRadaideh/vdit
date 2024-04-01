@@ -1,4 +1,4 @@
-export function ShrinkIcon(props: any) {
+export const ShrinkIcon = (props: any) => {
 	return (
 		<svg
 			{...props}
@@ -19,4 +19,3 @@ export function ShrinkIcon(props: any) {
 		</svg>
 	);
 }
-

@@ -1,4 +1,4 @@
-export function ImageIcon(props: any) {
+export const ImageIcon = (props: any) => {
 	return (
 		<svg
 			{...props}
@@ -18,4 +18,3 @@ export function ImageIcon(props: any) {
 		</svg>
 	);
 }
-

@@ -1,4 +1,4 @@
-export function LayoutGridIcon(props: any) {
+export const LayoutGridIcon = (props: any) => {
 	return (
 		<svg
 			{...props}
@@ -19,4 +19,3 @@ export function LayoutGridIcon(props: any) {
 		</svg>
 	);
 }
-

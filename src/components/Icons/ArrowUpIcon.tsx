@@ -1,4 +1,4 @@
-export function ArrowUpIcon(props: any) {
+export const ArrowUpIcon = (props: any) => {
 	return (
 		<svg
 			{...props}
@@ -17,4 +17,3 @@ export function ArrowUpIcon(props: any) {
 		</svg>
 	);
 }
-

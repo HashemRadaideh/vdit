@@ -1,4 +1,4 @@
-export function KeyIcon(props: any) {
+export const KeyIcon = (props: any) => {
 	return (
 		<svg
 			{...props}
@@ -18,4 +18,3 @@ export function KeyIcon(props: any) {
 		</svg>
 	);
 }
-
