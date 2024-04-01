@@ -18,4 +18,4 @@ export const TableIcon = (props: any) => {
 			<path d="M3 15h18" />
 		</svg>
 	);
-}
+};

@@ -31,7 +31,7 @@ export const ThemeToggle = () => {
 			<span className="sr-only">Theme mode toggle</span>
 		</button>
 	);
-}
+};
 
 function ModeToggleIcon(props: {
 	theme: "dark" | "light";

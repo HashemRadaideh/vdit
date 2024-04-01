@@ -1,9 +1,4 @@
-import {
-	Properties,
-	Sidebar,
-	Canvas,
-	Navbar,
-} from "./components";
+import { Properties, Sidebar, Canvas, Navbar } from "./components";
 
 const App = () => {
 	return (
@@ -12,7 +7,7 @@ const App = () => {
 				<Navbar />
 			</header>
 
-			<main className="flex">
+			<main className="flex grow">
 				<Sidebar />
 
 				<Canvas />
@@ -23,6 +18,6 @@ const App = () => {
 			<footer></footer>
 		</>
 	);
-}
+};
 
 export default App;

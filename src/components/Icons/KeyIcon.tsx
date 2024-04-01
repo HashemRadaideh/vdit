@@ -17,4 +17,4 @@ export const KeyIcon = (props: any) => {
 			<path d="m15.5 7.5 3 3L22 7l-3-3" />
 		</svg>
 	);
-}
+};

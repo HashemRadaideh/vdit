@@ -16,4 +16,4 @@ export const ArrowUpIcon = (props: any) => {
 			<path d="M12 19V5" />
 		</svg>
 	);
-}
+};

@@ -18,4 +18,4 @@ export const ShrinkIcon = (props: any) => {
 			<path d="M9 4.2V9m0 0H4.2M9 9 3 3" />
 		</svg>
 	);
-}
+};

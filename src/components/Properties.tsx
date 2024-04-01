@@ -1,6 +1,6 @@
 export const Properties = () => {
 	return (
-		<div className="flex flex-col border-l border-gray-200">
+		<aside className="flex flex-col border-l border-gray-200">
 			<span className="border-b border-gray-200 p-4 text-xl font-semibold">
 				Properties
 			</span>
@@ -33,7 +33,8 @@ export const Properties = () => {
 									type="checkbox"
 									name="horizontal"
 									id="horizontal"
-									value="Horizontal" />
+									value="Horizontal"
+								/>
 							</li>
 
 							<li className="flex justify-between gap-2">
@@ -44,12 +45,13 @@ export const Properties = () => {
 									type="checkbox"
 									name="vertical"
 									id="vertical"
-									value="Vertical" />
+									value="Vertical"
+								/>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-		</div>
+		</aside>
 	);
-}
+};
