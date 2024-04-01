@@ -1,10 +1,5 @@
-import { DragEvent, useEffect, useState } from "react";
-import {
-	ArrowUpIcon,
-	LayoutIcon,
-	MoveIcon,
-	ShrinkIcon
-} from "./Icons";
+import { DragEvent, useState } from "react";
+import { ArrowUpIcon, LayoutIcon, MoveIcon, ShrinkIcon } from "./Icons";
 
 export const Canvas = () => {
 	const [droppedComponents, setDroppedComponents] = useState<any[]>([]);
@@ -14,73 +9,57 @@ export const Canvas = () => {
 		color: string;
 	} | null>(null);
 
-	useEffect(() => {
-		const handleDragEnd = () => {
-			setPreviewComponent(null);
-		};
-
-		document.addEventListener("dragend", handleDragEnd);
-
-		return () => {
-			document.removeEventListener("dragend", handleDragEnd);
-		};
-	}, []);
-
-	const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+	const handleDragOver = (e: DragEvent<HTMLElement>) => {
 		e.preventDefault();
 
-		let x = e.clientX;
-		let y = e.clientY;
-		let color = "lightblue";
-
+		let color = "green";
 		const width = 100;
 		const height = 50;
 
+		let x = e.clientX - width / 2;
+		let y = e.clientY - height / 2;
 		const viewport = e.currentTarget.getBoundingClientRect();
-		if (x + width > viewport.right) {
+
+		if (x + width >= viewport.right) {
 			x = viewport.right - width;
 			color = "red";
-		} else if (x < viewport.left) {
-			x = viewport.left + width;
+		} else if (x <= viewport.left) {
+			x = viewport.left;
 			color = "red";
 		}
 
-		if (y + height > viewport.bottom) {
+		if (y + height >= viewport.bottom) {
 			y = viewport.bottom - height;
 			color = "red";
-		} else if (y < viewport.top) {
-			y = viewport.top + height;
+		} else if (y <= viewport.top) {
+			y = viewport.top;
 			color = "red";
 		}
 
 		setPreviewComponent({ x, y, color });
 	};
 
-	const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+	const handleDrop = (e: DragEvent<HTMLElement>) => {
 		e.preventDefault();
 		const componentName = e.dataTransfer.getData("componentName");
-
-		let x = e.clientX;
-		let y = e.clientY;
-
-		if (x < 0 || y < 0) {
-			return;
-		}
 
 		const width = 100;
 		const height = 50;
 
+		let x = e.clientX - width / 2;
+		let y = e.clientY - height / 2;
 		const viewport = e.currentTarget.getBoundingClientRect();
-		if (x + width > viewport.right) {
+
+		if (x + width >= viewport.right) {
 			x = viewport.right - width;
-		} else if (x < viewport.left) {
-			x = viewport.left + width;
+		} else if (x <= viewport.left) {
+			x = viewport.left;
 		}
 
-		if (y + height > viewport.bottom) {
+		if (y + height >= viewport.bottom) {
 			y = viewport.bottom - height;
-		} else if (y < viewport.top) {
-			y = viewport.top + height;
+		} else if (y <= viewport.top) {
+			y = viewport.top;
 		}
 
 		setDroppedComponents([
@@ -170,4 +149,4 @@ export const Canvas = () => {
 			</div>
 		</div>
 	);
-}
+};
