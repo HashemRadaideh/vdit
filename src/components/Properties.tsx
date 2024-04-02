@@ -1,11 +1,11 @@
-export const Properties = () => {
+export const Properties = ({ children }: { children: any }) => {
 	return (
 		<aside className="flex flex-col border-l border-gray-200">
-			<span className="border-b border-gray-200 p-4 text-xl font-semibold">
-				Properties
-			</span>
+			<div className="p-4 text-xl font-semibold max-2xl:h-1/5 h-2/6 w-full">
+				{children}
+			</div>
 
-			<div className="grid gap-4 overflow-auto p-4">
+			<div className="border-t border-gray-200 grid gap-4 overflow-auto p-4">
 				<button
 					type="button"
 					className="flex justify-center gap-2 rounded-lg border border-gray-200 p-2"

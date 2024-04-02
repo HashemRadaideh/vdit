@@ -1,4 +1,3 @@
-import { renderToStaticMarkup } from "react-dom/server";
 import { DragEvent, useRef } from "react";
 import {
 	CreditCardIcon,
@@ -9,7 +8,11 @@ import {
 	TableIcon,
 } from "./Icons";
 
-export const Sidebar = () => {
+export const Sidebar = ({
+	handleAppendGhost,
+}: {
+	handleAppendGhost: (ghost: HTMLElement | null) => void;
+}) => {
 	const ghostRef = useRef<HTMLElement>();
 
 	const handleDragStart = (
@@ -18,23 +21,34 @@ export const Sidebar = () => {
 	) => {
 		e.dataTransfer.setData("componentName", componentName);
 
-		const customElement = document.createElement("div");
-		customElement.innerHTML = renderToStaticMarkup(
-			<div className="h-0 w-0 bg-primary text-secondary">{componentName}</div>,
-		);
+		e.currentTarget.classList.add("bg-primary");
+		e.currentTarget.classList.add("text-secondary");
 
-		const ghostElement = customElement.firstChild as HTMLElement;
-		document.body.appendChild(ghostElement);
+		// const customElement = document.createElement("div");
+		// customElement.innerHTML = renderToStaticMarkup(
+		// 	<div className="bg-primary text-secondary">{componentName}</div>,
+		// );
 
+		// const ghostElement = customElement.firstChild as HTMLElement;
+		// document.body.appendChild(ghostElement);
+
+		const ghostElement: HTMLElement = (
+			<>
+				{componentName}
+			</>
+		) as unknown as HTMLElement;
+
+		handleAppendGhost(ghostElement);
 		ghostRef.current = ghostElement;
-
-		e.dataTransfer.setDragImage(ghostElement, 0, 0);
+		e.dataTransfer.setDragImage(ghostElement, 500, 500);
 	};
 
-	const handleDragEnd = (_e: DragEvent<HTMLElement>) => {
-		const ghostEle = ghostRef.current;
-		if (ghostEle) {
-			ghostEle.remove();
+	const handleDragEnd = (e: DragEvent<HTMLElement>) => {
+		e.currentTarget.classList.remove("bg-primary");
+		e.currentTarget.classList.remove("text-secondary");
+		// handleAppendGhost(null);
+		if (ghostRef.current) {
+			ghostRef.current.remove();
 		}
 	};
 

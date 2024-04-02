@@ -1,13 +1,9 @@
-import { DragEvent, useState } from "react";
+import { DragEvent, ReactNode, useState } from "react";
 import { ArrowUpIcon, LayoutIcon, MoveIcon, ShrinkIcon } from "./Icons";
 
 export const Canvas = () => {
 	const [droppedComponents, setDroppedComponents] = useState<any[]>([]);
-	const [previewComponent, setPreviewComponent] = useState<{
-		x: number;
-		y: number;
-		color: string;
-	} | null>(null);
+	const [previewComponent, setPreviewComponent] = useState<ReactNode | null>(null);
 
 	const handleDragOver = (e: DragEvent<HTMLElement>) => {
 		e.preventDefault();
@@ -36,7 +32,21 @@ export const Canvas = () => {
 			color = "red";
 		}
 
-		setPreviewComponent({ x, y, color });
+		setPreviewComponent((
+			<div
+				style={{
+					position: "fixed",
+					left: x + "px",
+					top: y + "px",
+					width: width + "px",
+					height: height + "px",
+					backgroundColor: color,
+				}}
+				className="flex items-center justify-center"
+			>
+				Preview
+			</div>
+		));
 	};
 
 	const handleDrop = (e: DragEvent<HTMLElement>) => {
@@ -74,6 +84,7 @@ export const Canvas = () => {
 					height: height + "px",
 					backgroundColor: "lightblue",
 				}}
+				className="flex items-center justify-center"
 			>
 				{componentName}
 			</div>,
@@ -83,7 +94,7 @@ export const Canvas = () => {
 	};
 
 	return (
-		<div className="flex grow flex-col justify-start p-4">
+		<div className="flex grow flex-col justify-start p-4 overflow-auto">
 			<div className="flex justify-center gap-4 pb-4">
 				<button
 					type="button"
@@ -120,20 +131,7 @@ export const Canvas = () => {
 				onDrop={handleDrop}
 				className="relative aspect-[16/9] overflow-hidden border border-dashed border-gray-200"
 			>
-				{previewComponent && (
-					<div
-						style={{
-							position: "fixed",
-							left: previewComponent.x + "px",
-							top: previewComponent.y + "px",
-							width: "100px", // Adjust width as needed
-							height: "50px", // Adjust height as needed
-							backgroundColor: previewComponent.color,
-						}}
-					>
-						Preview
-					</div>
-				)}
+				{previewComponent}
 
 				{droppedComponents.length === 0 ? (
 					<div className="flex h-full w-full flex-col items-center justify-center gap-2">
@@ -142,9 +140,7 @@ export const Canvas = () => {
 						</span>
 					</div>
 				) : (
-					droppedComponents.map((component, index) => (
-						<div key={index}>{component}</div>
-					))
+					droppedComponents
 				)}
 			</div>
 		</div>
