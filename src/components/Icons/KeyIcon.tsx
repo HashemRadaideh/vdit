@@ -1,8 +1,7 @@
-export const KeyIcon = (props: any) => {
+export const KeyIcon = (props: { className?: string }) => {
 	return (
 		<svg
 			{...props}
-			xmlns="http://www.w3.org/2000/svg"
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"
@@ -12,9 +11,10 @@ export const KeyIcon = (props: any) => {
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		>
-			<circle cx="7.5" cy="15.5" r="5.5" />
 			<path d="m21 2-9.6 9.6" />
 			<path d="m15.5 7.5 3 3L22 7l-3-3" />
+			{/* millionjs gives an error because of this line*/}
+			<circle cx="7.5" cy="15.5" r="5.5" />
 		</svg>
 	);
 };

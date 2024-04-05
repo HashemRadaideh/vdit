@@ -1,8 +1,7 @@
-export const ArrowUpIcon = (props: any) => {
+export const ArrowUpIcon = (props: { className?: string }) => {
 	return (
 		<svg
 			{...props}
-			xmlns="http://www.w3.org/2000/svg"
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"

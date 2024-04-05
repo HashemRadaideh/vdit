@@ -1,8 +1,7 @@
-export const ListIcon = (props: any) => {
+export const ListIcon = (props: { className?: string }) => {
 	return (
 		<svg
 			{...props}
-			xmlns="http://www.w3.org/2000/svg"
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"
@@ -12,12 +11,13 @@ export const ListIcon = (props: any) => {
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		>
+			<line x1="3" x2="3.01" y1="12" y2="12" />
+			<line x1="3" x2="3.01" y1="18" y2="18" />
+			{/* millionjs gives an error because of this line*/}
 			<line x1="8" x2="21" y1="6" y2="6" />
 			<line x1="8" x2="21" y1="12" y2="12" />
 			<line x1="8" x2="21" y1="18" y2="18" />
 			<line x1="3" x2="3.01" y1="6" y2="6" />
-			<line x1="3" x2="3.01" y1="12" y2="12" />
-			<line x1="3" x2="3.01" y1="18" y2="18" />
 		</svg>
 	);
 };

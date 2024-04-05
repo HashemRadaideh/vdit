@@ -1,8 +1,7 @@
-export const LayoutGridIcon = (props: any) => {
+export const LayoutGridIcon = (props: { className?: string }) => {
 	return (
 		<svg
 			{...props}
-			xmlns="http://www.w3.org/2000/svg"
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"
@@ -12,10 +11,11 @@ export const LayoutGridIcon = (props: any) => {
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		>
-			<rect width="7" height="7" x="3" y="3" rx="1" />
-			<rect width="7" height="7" x="14" y="3" rx="1" />
 			<rect width="7" height="7" x="14" y="14" rx="1" />
 			<rect width="7" height="7" x="3" y="14" rx="1" />
+			{/* millionjs gives an error because of this line*/}
+			<rect width="7" height="7" x="3" y="3" rx="1" />
+			<rect width="7" height="7" x="14" y="3" rx="1" />
 		</svg>
 	);
 };
