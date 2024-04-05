@@ -3,31 +3,29 @@ import { useState } from "react";
 import { Properties, Sidebar, Canvas, Navbar } from "./components";
 
 const App = () => {
-	const [ghostElement, setGhostElement] = useState<HTMLElement | null>();
+  const [ghostElement, setGhostElement] = useState<HTMLElement | null>();
 
-	const handleAppendGhost = (ghost: HTMLElement | null) => {
-		setGhostElement(ghost);
-	};
+  const handleAppendGhost = (ghost: HTMLElement | null) => {
+    setGhostElement(ghost);
+  };
 
-	return (
-		<>
-			<header>
-				<Navbar />
-			</header>
+  return (
+    <>
+      <header>
+        <Navbar />
+      </header>
 
-			<main className="flex grow overflow-auto">
-				<Sidebar handleAppendGhost={handleAppendGhost} />
+      <main className="flex grow overflow-auto">
+        <Sidebar handleAppendGhost={handleAppendGhost} />
 
-				<Canvas />
+        <Canvas />
 
-				<Properties>
-					{ghostElement}
-				</Properties>
-			</main>
+        <Properties>{ghostElement}</Properties>
+      </main>
 
-			<footer></footer>
-		</>
-	);
+      <footer></footer>
+    </>
+  );
 };
 
 export default App;
