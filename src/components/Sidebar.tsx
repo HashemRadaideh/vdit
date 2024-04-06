@@ -7,6 +7,7 @@ import {
   ListIcon,
   TableIcon,
 } from "./Icons";
+import { renderToStaticMarkup } from "react-dom/server";
 
 interface SidebarProps {
   handleAppendGhost: (ghost: ReactNode | null) => void;
@@ -26,22 +27,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
     e.currentTarget.classList.add("bg-primary-600");
     e.currentTarget.classList.add("text-secondary");
 
-    // const customElement = document.createElement("div");
-    // customElement.innerHTML = renderToStaticMarkup(
-    // 	<div className="bg-primary text-secondary">{componentName}</div>,
-    // );
     handleAppendGhost(<>{componentName}</>);
 
-    // const ghostElement = customElement.firstChild as HTMLElement;
-    // document.body.appendChild(ghostElement);
+    const customElement = document.createElement("div");
+    customElement.innerHTML = renderToStaticMarkup(
+      <div className="size-0">{componentName}</div>,
+    );
 
-    const ghostElement: HTMLElement = (
-      <>{componentName}</>
-    ) as unknown as HTMLElement;
+    const ghostElement = customElement.firstChild as HTMLElement;
+    document.body.appendChild(ghostElement);
 
-    handleAppendGhost(ghostElement);
     ghostRef.current = ghostElement;
-    e.dataTransfer.setDragImage(ghostElement, 500, 500);
+    e.dataTransfer.setDragImage(ghostElement, 1_000_000, 1_000_000);
   };
 
   const handleDragOver = (e: DragEvent<HTMLElement>) => {
