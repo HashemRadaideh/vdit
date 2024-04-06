@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -12,18 +18,45 @@
 
 html,
 body,
-#root,
-canvas {
+#root {
   height: 100%;
   width: 100%;
-  margin: 0;
   @apply flex flex-col;
 }
 
 @layer base {
   :root {
-    --color-primary: 210deg 40% 98%;
-    --color-secondary: 217deg 32.6% 17.5%;
+    --color-secondary: 232deg 15% 28%;
+    --color-secondary-50: 231deg 20% 30%;
+    --color-secondary-100: 230deg 18% 34%;
+    --color-secondary-200: 229deg 16% 35%;
+    --color-secondary-300: 230deg 17% 36%;
+    --color-secondary-400: 231deg 15% 33%;
+    --color-secondary-500: 232deg 15% 28%;
+    --color-secondary-600: 233deg 15% 24%;
+    --color-secondary-700: 234deg 12% 23%;
+    --color-secondary-800: 234deg 11% 20%;
+    --color-secondary-900: 235deg 10% 18%;
+    --color-secondary-950: 235deg 6% 9%;
+    --color-primary: 30deg 100% 89%;
+    --color-primary-50: 0deg 0% 100%;
+    --color-primary-100: 30deg 100% 97%;
+    --color-primary-200: 30deg 100% 95%;
+    --color-primary-300: 30deg 100% 94%;
+    --color-primary-400: 30deg 100% 94%;
+    --color-primary-500: 30deg 100% 89%;
+    --color-primary-600: 30deg 87% 88%;
+    --color-primary-700: 30deg 75% 88%;
+    --color-primary-800: 30deg 72% 85%;
+    --color-primary-900: 30deg 72% 82%;
+    --color-primary-950: 30deg 73% 74%;
+    --color-tertiary: 231deg 16% 35%;
+    --color-accent: 177deg 9% 38%;
+    --color-gray: 298deg 5% 58%;
+    --color-red: 351deg 52% 33%;
+    --color-green: 159deg 43% 58%;
+    --color-blue: 218deg 36% 61%;
+    --color-cyan: 179deg 49% 42%;
   }
 
   // @media (prefers-color-scheme: dark) {
@@ -34,7 +67,44 @@ canvas {
   // }
 
   :root.dark {
-    --color-primary: 217deg 32.6% 17.5%;
-    --color-secondary: 210deg 40% 98%;
+    --color-primary: 232deg 15% 28%;
+    --color-primary-50: 231deg 20% 30%;
+    --color-primary-100: 230deg 18% 34%;
+    --color-primary-200: 229deg 16% 35%;
+    --color-primary-300: 230deg 17% 36%;
+    --color-primary-400: 231deg 15% 33%;
+    --color-primary-500: 232deg 15% 28%;
+    --color-primary-600: 233deg 15% 24%;
+    --color-primary-700: 234deg 12% 23%;
+    --color-primary-800: 234deg 11% 20%;
+    --color-primary-900: 235deg 10% 18%;
+    --color-primary-950: 235deg 6% 9%;
+
+    --color-secondary: 30deg 100% 89%;
+    --color-secondary-50: 0deg 0% 100%;
+    --color-secondary-100: 30deg 100% 97%;
+    --color-secondary-200: 30deg 100% 95%;
+    --color-secondary-300: 30deg 100% 94%;
+    --color-secondary-400: 30deg 100% 94%;
+    --color-secondary-500: 30deg 100% 89%;
+    --color-secondary-600: 30deg 87% 88%;
+    --color-secondary-700: 30deg 75% 88%;
+    --color-secondary-800: 30deg 72% 85%;
+    --color-secondary-900: 30deg 72% 82%;
+    --color-secondary-950: 30deg 73% 74%;
+
+    --color-tertiary: 231deg 16% 35%;
+
+    --color-accent: 177deg 9% 38%;
+
+    --color-gray: 298deg 5% 58%;
+
+    --color-red: 351deg 52% 33%;
+
+    --color-green: 159deg 43% 58%;
+
+    --color-blue: 218deg 36% 61%;
+
+    --color-cyan: 179deg 49% 42%;
   }
 }
