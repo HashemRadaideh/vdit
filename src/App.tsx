@@ -1,11 +1,10 @@
-// App.tsx
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Properties, Sidebar, Canvas, Navbar } from "./components";
 
 const App = () => {
-  const [ghostElement, setGhostElement] = useState<HTMLElement | null>();
+  const [ghostElement, setGhostElement] = useState<ReactNode>(null);
 
-  const handleAppendGhost = (ghost: HTMLElement | null) => {
+  const handleAppendGhost = (ghost: ReactNode | null) => {
     setGhostElement(ghost);
   };
 
@@ -15,10 +14,10 @@ const App = () => {
         <Navbar />
       </header>
 
-      <main className="flex grow overflow-auto">
+      <main className="flex grow overflow-auto border-t border-tertiary bg-primary text-secondary">
         <Sidebar handleAppendGhost={handleAppendGhost} />
 
-        <Canvas />
+        <Canvas handleAppendGhost={handleAppendGhost} />
 
         <Properties>{ghostElement}</Properties>
       </main>

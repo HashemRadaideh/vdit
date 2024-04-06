@@ -1,4 +1,10 @@
-export const ShrinkIcon = (props: { className?: string }) => {
+interface ShrinkIconProps {
+  className?: string;
+}
+
+export const ShrinkIcon: React.FC<ShrinkIconProps> = (
+  props: ShrinkIconProps,
+) => {
   return (
     <svg
       {...props}

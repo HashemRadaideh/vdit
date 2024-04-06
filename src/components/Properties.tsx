@@ -1,21 +1,29 @@
-export const Properties = ({ children }: { children: any }) => {
+import { ReactNode } from "react";
+
+interface PropertiesProps {
+  children?: ReactNode;
+}
+
+export const Properties: React.FC<PropertiesProps> = ({
+  children,
+}: PropertiesProps) => {
   return (
-    <aside className="flex flex-col border-l border-gray-200">
+    <aside className="flex flex-col border-l border-tertiary">
       <div className="h-2/6 w-full p-4 text-xl font-semibold max-2xl:h-1/5">
         {children}
       </div>
 
-      <div className="grid gap-4 overflow-auto border-t border-gray-200 p-4">
+      <div className="grid gap-4 overflow-auto border-t border-tertiary p-4">
         <button
           type="button"
-          className="flex justify-center gap-2 rounded-lg border border-gray-200 p-2"
+          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
         >
           <span>Draggable</span>
         </button>
         <div>
           <button
             type="button"
-            className="flex justify-center gap-2 rounded-lg border border-gray-200 p-2"
+            className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
           >
             <span>Resizable</span>
           </button>

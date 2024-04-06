@@ -1,4 +1,10 @@
-export const CreditCardIcon = (props: { className?: string }) => {
+interface CreditCardIconProps {
+  className?: string;
+}
+
+export const CreditCardIcon: React.FC<CreditCardIconProps> = (
+  props: CreditCardIconProps,
+) => {
   return (
     <svg
       {...props}

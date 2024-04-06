@@ -1,11 +1,14 @@
-import { DragEvent, ReactNode, useState } from "react";
+import { DragEvent, ReactNode, useState, MouseEvent } from "react";
 import { ArrowUpIcon, LayoutIcon, MoveIcon, ShrinkIcon } from "./Icons";
+import { GridLines } from "./GridLines";
 
-export const Canvas = () => {
-  const [droppedComponents, setDroppedComponents] = useState<any[]>([]);
-  const [previewComponent, setPreviewComponent] = useState<ReactNode | null>(
-    null,
-  );
+interface CanvasProps {
+  handleAppendGhost: (ghost: ReactNode | null) => void;
+}
+
+export const Canvas: React.FC<CanvasProps> = ({
+  handleAppendGhost,
+}: CanvasProps) => {
   const [isDraggingCanvas, setIsDraggingCanvas] = useState(false);
   const [canvasPosition, setCanvasPosition] = useState<{
     x: number;

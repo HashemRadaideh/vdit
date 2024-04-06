@@ -1,4 +1,8 @@
-export const TableIcon = (props: { className?: string }) => {
+interface TableIconProps {
+  className?: string;
+}
+
+export const TableIcon: React.FC<TableIconProps> = (props: TableIconProps) => {
   return (
     <svg
       {...props}

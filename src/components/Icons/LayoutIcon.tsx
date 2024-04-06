@@ -1,4 +1,8 @@
-export const LayoutIcon = (props: { className?: string }) => {
+interface LayoutIconProps {
+  className?: string;
+}
+
+export const LayoutIcon = (props: LayoutIconProps) => {
   return (
     <svg
       {...props}

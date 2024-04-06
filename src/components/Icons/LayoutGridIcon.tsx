@@ -1,4 +1,10 @@
-export const LayoutGridIcon = (props: { className?: string }) => {
+interface LayoutGridIconProps {
+  className?: string;
+}
+
+export const LayoutGridIcon: React.FC<LayoutGridIconProps> = (
+  props: LayoutGridIconProps,
+) => {
   return (
     <svg
       {...props}

@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, MouseEvent } from "react";
 
-export const ThemeToggle = () => {
+export const ThemeToggle: React.FC = () => {
   const [theme, setTheme] = useState<"dark" | "light">("light");
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const ThemeToggle = () => {
   return (
     <button
       className="ml-0"
-      onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      onClick={(event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         setTheme(theme == "dark" ? "light" : "dark");
       }}

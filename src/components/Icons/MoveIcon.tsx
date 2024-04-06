@@ -1,4 +1,8 @@
-export const MoveIcon = (props: { className?: string }) => {
+interface MoveIconProps {
+  className?: string;
+}
+
+export const MoveIcon: React.FC<MoveIconProps> = (props: MoveIconProps) => {
   return (
     <svg
       {...props}

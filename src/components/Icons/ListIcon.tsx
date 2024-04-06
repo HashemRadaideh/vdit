@@ -1,4 +1,8 @@
-export const ListIcon = (props: { className?: string }) => {
+interface ListIconProps {
+  className?: string;
+}
+
+export const ListIcon: React.FC<ListIconProps> = (props: ListIconProps) => {
   return (
     <svg
       {...props}

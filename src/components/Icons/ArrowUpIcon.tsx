@@ -1,4 +1,10 @@
-export const ArrowUpIcon = (props: { className?: string }) => {
+interface ArrowUpIconProps {
+  className?: string;
+}
+
+export const ArrowUpIcon: React.FC<ArrowUpIconProps> = (
+  props: ArrowUpIconProps,
+) => {
   return (
     <svg
       {...props}

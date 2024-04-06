@@ -1,4 +1,8 @@
-export const KeyIcon = (props: { className?: string }) => {
+interface KeyIconProps {
+  className?: string;
+}
+
+export const KeyIcon: React.FC<KeyIconProps> = (props: KeyIconProps) => {
   return (
     <svg
       {...props}
