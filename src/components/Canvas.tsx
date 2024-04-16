@@ -1,6 +1,13 @@
-import { DragEvent, ReactNode, useState, MouseEvent } from "react";
-import { ArrowUpIcon, LayoutIcon, MoveIcon, ShrinkIcon } from "./Icons";
-import { GridLines } from "./GridLines";
+import { DraggableComponent } from "./DraggableComponent";
+import {
+  DragEvent,
+  ReactNode,
+  useState,
+  MouseEvent,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 
 export interface CanvasInfo {
   x: number;

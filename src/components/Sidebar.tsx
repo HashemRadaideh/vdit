@@ -1,4 +1,3 @@
-import { DragEvent, ReactNode, useRef } from "react";
 import {
   CreditCardIcon,
   ImageIcon,
@@ -7,6 +6,7 @@ import {
   ListIcon,
   TableIcon,
 } from "./Icons";
+import { DragEvent, ReactNode, useRef } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 interface SidebarProps {

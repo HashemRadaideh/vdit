@@ -1,5 +1,5 @@
-import { ReactNode, useState } from "react";
 import { Properties, Sidebar, Canvas, Navbar } from "./components";
+import { ReactNode, useState } from "react";
 
 const App = () => {
   const [ghostElement, setGhostElement] = useState<ReactNode>(null);
