@@ -46,3 +46,8 @@ export default {
   },
   plugins: [],
 };
+
+/*
+ * rgba(244, 215, 214, 211)
+ *
+ * */

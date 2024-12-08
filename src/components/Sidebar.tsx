@@ -41,10 +41,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     e.dataTransfer.setDragImage(ghostElement, 1_000_000, 1_000_000);
   };
 
-  const handleDragOver = (e: DragEvent<HTMLElement>) => {
-    e.preventDefault();
-  };
-
   const handleDragEnd = (e: DragEvent<HTMLElement>) => {
     e.currentTarget.classList.remove("bg-primary-600");
     e.currentTarget.classList.remove("text-secondary");
@@ -67,8 +63,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           draggable
           onDragStart={(e): void => handleDragStart(e, "Button")}
           onDragEnd={handleDragEnd}
-          onDragOver={handleDragOver}
-          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
+          className="flex cursor-grab justify-center gap-2 rounded-lg border border-tertiary p-2"
         >
           <KeyIcon className="h-4 w-4" />
           <span className="text-xs">Button</span>
@@ -77,8 +72,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           draggable
           onDragStart={(e): void => handleDragStart(e, "Card")}
           onDragEnd={handleDragEnd}
-          onDragOver={handleDragOver}
-          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
+          className="flex cursor-grab justify-center gap-2 rounded-lg border border-tertiary p-2"
         >
           <CreditCardIcon className="h-4 w-4" />
           <span className="text-xs">Card</span>
@@ -87,8 +81,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           draggable
           onDragStart={(e): void => handleDragStart(e, "Image")}
           onDragEnd={handleDragEnd}
-          onDragOver={handleDragOver}
-          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
+          className="flex cursor-grab justify-center gap-2 rounded-lg border border-tertiary p-2"
         >
           <ImageIcon className="h-4 w-4" />
           <span className="text-xs">Image</span>
@@ -97,8 +90,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           draggable
           onDragStart={(e): void => handleDragStart(e, "Grid")}
           onDragEnd={handleDragEnd}
-          onDragOver={handleDragOver}
-          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
+          className="flex cursor-grab justify-center gap-2 rounded-lg border border-tertiary p-2"
         >
           <LayoutGridIcon className="h-4 w-4" />
           <span className="text-xs">Grid</span>
@@ -107,8 +99,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           draggable
           onDragStart={(e): void => handleDragStart(e, "List")}
           onDragEnd={handleDragEnd}
-          onDragOver={handleDragOver}
-          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
+          className="flex cursor-grab justify-center gap-2 rounded-lg border border-tertiary p-2"
         >
           <ListIcon className="h-4 w-4" />
           <span className="text-xs">List</span>
@@ -117,8 +108,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           draggable
           onDragStart={(e): void => handleDragStart(e, "Table")}
           onDragEnd={handleDragEnd}
-          onDragOver={handleDragOver}
-          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
+          className="flex cursor-grab justify-center gap-2 rounded-lg border border-tertiary p-2"
         >
           <TableIcon className="h-4 w-4" />
           <span className="text-xs">Table</span>

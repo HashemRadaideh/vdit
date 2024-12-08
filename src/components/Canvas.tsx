@@ -17,232 +17,195 @@ export interface CanvasInfo {
 
 interface CanvasProps {
   handleAppendGhost: (ghost: ReactNode | null) => void;
+  gridSize?: number;
 }
 
 export const Canvas: React.FC<CanvasProps> = ({
   handleAppendGhost,
-}: CanvasProps) => {
+  gridSize = 80,
+}) => {
+  const canvasRef = useRef<HTMLDivElement>(null);
+
   const [components, setComponents] = useState<ReactNode[]>([]);
 
   const [preview, setPreview] = useState<ReactNode | null>(null);
 
-  const [isDraggingCanvas, setIsDraggingCanvas] = useState(false);
+  const [isPanningCanvas, setIsDraggingCanvas] = useState(false);
 
-  const [canvasState, setCanvasState] = useState<CanvasInfo>({
+  const [canvasOffset, setCanvasOffset] = useState<CanvasInfo>({
     x: 0,
     y: 0,
     scale: 1,
   });
 
-  const [previousState, setPreviousState] = useState<CanvasInfo>({
+  const [canvasPrevious, setCanvasPrevious] = useState<CanvasInfo>({
     x: 0,
     y: 0,
     scale: 1,
   });
 
-  const componentSelect = (
-    _e: MouseEvent<HTMLDivElement>,
-    componentName: string,
-  ) => {
-    handleAppendGhost(<>{componentName}</>);
-  };
+  const canvasDragOver = useCallback(
+    (e: DragEvent<HTMLElement>) => {
+      e.preventDefault();
 
-  const componentDrag = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
+      const color = "blueviolet";
+      const width = 80;
+      const height = 160;
 
-  const componentDeselect = (_e: MouseEvent<HTMLDivElement>) => {};
+      const viewport = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - canvasOffset.x - viewport.left - width / 2;
+      const y = e.clientY - canvasOffset.y - viewport.top - height / 2;
 
-  const canvasDragOver = (e: DragEvent<HTMLElement>) => {
-    e.preventDefault();
-
-    let color = "blueviolet";
-    const width = 100;
-    const height = 50;
-
-    const viewport = e.currentTarget.getBoundingClientRect();
-
-    // actual mouse (x, y) position relative to the screen
-    let x = e.clientX;
-    let y = e.clientY;
-
-    // translating mouse (x, y) to relative canvas coordinates
-    x -= canvasState.x;
-    y -= canvasState.y;
-
-    // bounding the mouse into the canvas's viewport
-    x -= viewport.left;
-    y -= viewport.top;
-
-    // positioning the (x, y) into the center of the widget
-    x -= width / 2;
-    y -= height / 2;
-
-    setPreview(
-      <div
-        className="flex select-none items-center justify-center"
-        style={{
-          position: "absolute",
-          left: x + "px",
-          top: y + "px",
-          width: width + "px",
-          height: height + "px",
-          backgroundColor: color,
-        }}
-      >
-        Preview
-      </div>,
-    );
-  };
-
-  const canvasDropOver = (e: DragEvent<HTMLElement>) => {
-    e.preventDefault();
-    const componentName = e.dataTransfer.getData("componentName");
-
-    let color = "green";
-    const width = 100;
-    const height = 50;
-
-    const viewport = e.currentTarget.getBoundingClientRect();
-
-    // actual mouse (x, y) position relative to the screen
-    let x = e.clientX;
-    let y = e.clientY;
-
-    // translating mouse (x, y) to relative canvas coordinates
-    x -= canvasState.x;
-    y -= canvasState.y;
-
-    // bounding the mouse into the canvas's viewport
-    x -= viewport.left;
-    y -= viewport.top;
-
-    // positioning the (x, y) into the center of the widget
-    x -= width / 2;
-    y -= height / 2;
-
-    setComponents([
-      ...components,
-      <div
-        className="flex select-none items-center justify-center"
-        key={components.length}
-        onMouseDown={(e) => componentSelect(e, componentName)}
-        onMouseMove={componentDrag}
-        onMouseUp={componentDeselect}
-        style={{
-          position: "absolute",
-          left: x + "px",
-          top: y + "px",
-          width: width + "px",
-          height: height + "px",
-          backgroundColor: color,
-        }}
-      >
-        {componentName}
-      </div>,
-    ]);
-
-    setPreview(null);
-  };
-
-  const canvasMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    handleAppendGhost(null);
-    setIsDraggingCanvas(true);
-    setPreview(null);
-    setPreviousState({ x: e.clientX, y: e.clientY, scale: canvasState.scale });
-  };
-
-  const canvasMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-
-    if (isDraggingCanvas) {
-      const dx = e.clientX - previousState.x;
-      const dy = e.clientY - previousState.y;
-
-      setCanvasState({
-        x: canvasState.x + dx,
-        y: canvasState.y + dy,
-        scale: canvasState.scale,
-      });
-
-      setPreviousState({
-        x: e.clientX,
-        y: e.clientY,
-        scale: canvasState.scale,
-      });
-    }
-  };
-
-  const canvasMouseUp = () => {
-    setIsDraggingCanvas(false);
-  };
-
-  const canvasMouseWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const scaleChange = e.deltaY > 0 ? -0.1 : 0.1;
-    setCanvasState({
-      ...canvasState,
-      scale: Math.min(1.9, Math.max(0.1, canvasState.scale + scaleChange)),
-    });
-  };
-
-  return (
-    <div className="flex grow flex-col justify-start">
-      <div
-        className="relative grow overflow-hidden"
-        onDragOver={canvasDragOver}
-        onDrop={canvasDropOver}
-        onMouseDown={canvasMouseDown}
-        onMouseMove={canvasMouseMove}
-        onMouseUp={canvasMouseUp}
-        onWheel={canvasMouseWheel}
-      >
-        {components.length === 0 && preview === null && (
-          <span className="absolute inset-0 flex select-none items-center justify-center text-5xl font-semibold text-secondary-700">
-            Drop here
-          </span>
-        )}
+      setPreview(
         <div
-          className="absolute"
+          className="flex select-none items-center justify-center"
           style={{
-            transform: `scale(${canvasState.scale}) translate(${canvasState.x}px, ${canvasState.y}px)`,
+            position: "absolute",
+            left: x + "px",
+            top: y + "px",
+            width: width + "px",
+            height: height + "px",
+            backgroundColor: color,
           }}
         >
-          {preview}
-          {components}
-        </div>
-      </div>
+          Preview
+        </div>,
+      );
+    },
+    [canvasOffset],
+  );
 
-      <div className="flex justify-center gap-4 border border-tertiary p-2">
-        <button
-          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
-          type="button"
+  const canvasDropOver = useCallback(
+    (e: DragEvent<HTMLElement>) => {
+      e.preventDefault();
+      const componentName = e.dataTransfer.getData("componentName");
+
+      const color = "green";
+      const width = 80;
+      const height = 160;
+
+      const viewport = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - canvasOffset.x - viewport.left - width / 2;
+      const y = e.clientY - canvasOffset.y - viewport.top - height / 2;
+
+      setComponents([
+        ...components,
+        <DraggableComponent
+          key={components.length}
+          className="flex select-none items-center justify-center"
+          origin={{ x: x, y: y }}
         >
-          <MoveIcon className="h-4 w-4" />
-          <span>Move</span>
-        </button>
-        <button
-          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
-          type="button"
-        >
-          <ShrinkIcon className="h-4 w-4" />
-          <span>Resize</span>
-        </button>
-        <button
-          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
-          type="button"
-        >
-          <LayoutIcon className="h-6 w-6" />
-          <span>Layout</span>
-        </button>
-        <button
-          className="flex justify-center gap-2 rounded-lg border border-tertiary p-2"
-          type="button"
-        >
-          <ArrowUpIcon className="h-6 w-6" />
-          <span>Canvas</span>
-        </button>
+          <div
+            className="flex items-center justify-center"
+            style={{
+              width: width + "px",
+              height: height + "px",
+              backgroundColor: color,
+            }}
+          >
+            {componentName}
+          </div>
+        </DraggableComponent>,
+      ]);
+
+      setPreview(null);
+    },
+    [canvasOffset, components],
+  );
+
+  const canvasFocus = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      handleAppendGhost(null);
+      setIsDraggingCanvas(true);
+      setPreview(null);
+      setCanvasPrevious({
+        x: e.clientX,
+        y: e.clientY,
+        scale: canvasOffset.scale,
+      });
+    },
+    [canvasOffset.scale, handleAppendGhost],
+  );
+
+  const canvasPanning = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      e.preventDefault();
+
+      if (isPanningCanvas) {
+        const dx = e.clientX - canvasPrevious.x;
+        const dy = e.clientY - canvasPrevious.y;
+
+        setCanvasOffset({
+          x: canvasOffset.x + dx,
+          y: canvasOffset.y + dy,
+          scale: canvasOffset.scale,
+        });
+
+        setCanvasPrevious({
+          x: e.clientX,
+          y: e.clientY,
+          scale: canvasOffset.scale,
+        });
+      }
+    },
+    [isPanningCanvas, canvasOffset, canvasPrevious],
+  );
+
+  const canvasUnfocus = useCallback(() => {
+    setIsDraggingCanvas(false);
+  }, []);
+
+  const canvasZoom = useCallback(
+    (e: React.WheelEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      const scaleChange = e.deltaY > 0 ? -0.25 : 0.25;
+      const newScale = Math.min(
+        2,
+        Math.max(0.1, canvasOffset.scale + scaleChange),
+      );
+      setCanvasOffset({
+        ...canvasOffset,
+        scale: newScale,
+      });
+    },
+    [canvasOffset],
+  );
+
+  const backgroundStyle = useMemo(
+    () => ({
+      backgroundImage: `linear-gradient(to right, rgb(203 213 225) 2px, transparent 2px), linear-gradient(to bottom, rgb(203 213 225) 2px, transparent 2px)`,
+      backgroundSize: `${(gridSize / 2) * canvasOffset.scale}px ${(gridSize / 2) * canvasOffset.scale}px`,
+      backgroundPosition: `${canvasOffset.x}px ${canvasOffset.y}px`,
+    }),
+    [gridSize, canvasOffset],
+  );
+
+  return (
+    <div
+      ref={canvasRef}
+      className="relative grow overflow-hidden"
+      onDragOver={canvasDragOver}
+      onDrop={canvasDropOver}
+      onMouseDown={canvasFocus}
+      onMouseMove={canvasPanning}
+      onMouseUp={canvasUnfocus}
+      onWheel={canvasZoom}
+      style={backgroundStyle}
+    >
+      {components.length === 0 && preview === null && (
+        <span className="absolute inset-0 flex select-none items-center justify-center text-5xl font-semibold text-secondary-700">
+          Drop here
+        </span>
+      )}
+      <div
+        className="absolute"
+        style={{
+          transform: `scale(${canvasOffset.scale}) translate(${canvasOffset.x}px, ${canvasOffset.y}px)`,
+        }}
+      >
+        {preview}
+        {components}
       </div>
     </div>
   );
